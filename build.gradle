@@ -24,7 +24,7 @@ repositories {
 }
 
 loom {
-    accessWidenerPath = file("src/main/resources/modid.accesswidener")
+    accessWidenerPath = file("src/main/resources/presence-footsteps.accesswidener")
     mergedMinecraftJar()
     //latest fishmodloader https://github.com/MinecraftIsTooEasy/FishModLoader/releases/latest
     setFML(new File("libs\\FishModLoader-v${loader_version}.jar"))
@@ -51,8 +51,7 @@ dependencies {
     implementation("it.unimi.dsi:fastutil:8.5.12")
     implementation("com.google.code.gson:gson:2.11.0")
 
-    // Rusted_Iron_Core API. This is technically optional, but you probably want it anyway.
-    implementation files("libs\\RustedIronCore-${rusted_iron_core_version}.jar")
+
 }
 
 processResources {

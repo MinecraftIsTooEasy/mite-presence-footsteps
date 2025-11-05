@@ -1,6 +1,6 @@
 package eu.ha3.mc.presencefootsteps.mcpackage.interfaces;
 
-import net.minecraft.src.EntityPlayer;
+import net.minecraft.EntityPlayer;
 
 /*
             DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE 

@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import net.minecraft.src.PFHaddon;
+import net.minecraft.PFHaddon;
 import eu.ha3.mc.presencefootsteps.engine.interfaces.Acoustic;
 import eu.ha3.mc.presencefootsteps.engine.interfaces.EventType;
 import eu.ha3.mc.presencefootsteps.engine.interfaces.Library;

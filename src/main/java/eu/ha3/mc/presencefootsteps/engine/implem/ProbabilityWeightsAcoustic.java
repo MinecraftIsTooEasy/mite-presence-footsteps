@@ -3,7 +3,7 @@ package eu.ha3.mc.presencefootsteps.engine.implem;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.src.PFHaddon;
+import net.minecraft.PFHaddon;
 import eu.ha3.mc.presencefootsteps.engine.interfaces.Acoustic;
 import eu.ha3.mc.presencefootsteps.engine.interfaces.EventType;
 import eu.ha3.mc.presencefootsteps.engine.interfaces.Options;

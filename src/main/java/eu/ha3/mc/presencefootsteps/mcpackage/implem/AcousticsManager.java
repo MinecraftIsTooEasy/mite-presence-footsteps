@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
-import net.minecraft.src.Entity;
-import net.minecraft.src.EntityLivingBase;
-import net.minecraft.src.PFAccessors;
-import net.minecraft.src.PFHaddon;
+import net.minecraft.Entity;
+import net.minecraft.EntityLivingBase;
+import net.minecraft.PFAccessors;
+import net.minecraft.PFHaddon;
 import eu.ha3.mc.presencefootsteps.engine.implem.AcousticsLibrary;
 import eu.ha3.mc.presencefootsteps.engine.interfaces.EventType;
 import eu.ha3.mc.presencefootsteps.engine.interfaces.Options;
