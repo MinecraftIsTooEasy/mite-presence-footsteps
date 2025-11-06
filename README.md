@@ -1,11 +1,7 @@
-# Fish Example Mod
-
-## Setup
-
-For setup instructions please see the [fish documentation page](https://minecraftistooeasy.github.io/pages/docs-navigation.html) that relates to the IDE that you are using.
+# mite-presence-footsteps
+Fork of Presence Footsteps for Minecraft is Too Easy. Based on the 1.6.4 Modloader version of Presence Footsteps
+> [!NOTE]
+> Requries [BetterGameSetting](https://github.com/MinecraftIsTooEasy/BetterGameSetting) as a dependency
 
 ## License
-
-This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
-
-Some content refers to Fabric Example Mod
+This project is available under the WTFPL license. Do whatever the fuck you want with it!
