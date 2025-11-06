@@ -14,7 +14,7 @@
 	},
 	"license": "WTFPLv2",
 	"icon": "assets/presence-footsteps/icon.png",
-	"environment": "*",
+	"environment": "client",
 	"entrypoints": {
 		"main": [
 			"com.jeffyjamzhd.MiTEPresenceFootsteps"
@@ -27,6 +27,7 @@
 	"depends": {
 		"fishmodloader": ">=3.4.0",
 		"minecraft": "1.6.4-mite",
-		"java": ">=17"
+		"java": ">=17",
+		"better_game_setting": ">=1.2.3"
 	}
 }

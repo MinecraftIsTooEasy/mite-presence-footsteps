@@ -1,1 +1,11 @@
 accessWidener v2 named
+accessible field net/minecraft/Minecraft timer Lnet/minecraft/Timer;
+accessible field net/minecraft/Minecraft defaultResourcePacks Ljava/util/List;
+accessible field net/minecraft/Minecraft prevFrameTime J
+accessible field net/minecraft/Minecraft currentServerData Lnet/minecraft/ServerData;
+accessible field net/minecraft/SoundManager sndSystem Lpaulscode/sound/SoundSystem;
+accessible field net/minecraft/SoundManager soundPoolSounds Lnet/minecraft/SoundPool;
+accessible field net/minecraft/EntityLivingBase isJumping Z
+accessible field net/minecraft/Entity isInWeb Z
+accessible field net/minecraft/Entity nextStepDistance I
+accessible field net/minecraft/FallbackResourceManager resourcePacks Ljava/util/List;

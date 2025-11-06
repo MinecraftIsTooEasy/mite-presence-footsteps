@@ -6,11 +6,15 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
+import static com.jeffyjamzhd.MiTEPresenceFootsteps.LOGGER;
+
 import eu.ha3.easy.EdgeModel;
 import eu.ha3.easy.EdgeTrigger;
 import eu.ha3.mc.convenience.Ha3StaticUtilities;
-import eu.ha3.mc.haddon.PrivateAccessException;
+import eu.ha3.mc.haddon.Identity;
 import eu.ha3.mc.haddon.SupportsFrameEvents;
+import eu.ha3.mc.haddon.implem.Ha3Utility;
+import eu.ha3.mc.haddon.implem.HaddonImpl;
 import eu.ha3.mc.presencefootsteps.mcpackage.implem.AcousticsManager;
 import eu.ha3.mc.presencefootsteps.mcpackage.implem.BasicBlockMap;
 import eu.ha3.mc.presencefootsteps.mcpackage.implem.BasicPrimitiveMap;
@@ -24,6 +28,7 @@ import eu.ha3.mc.presencefootsteps.parsers.JasonAcoustics_Engine0;
 import eu.ha3.mc.presencefootsteps.parsers.PropertyBlockMap_Engine0;
 import eu.ha3.mc.presencefootsteps.parsers.PropertyPrimitiveMap_Engine0;
 import eu.ha3.util.property.simple.ConfigProperty;
+import org.lwjgl.input.Keyboard;
 
 /*
             DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE 
@@ -45,6 +50,8 @@ public class PFHaddon extends HaddonImpl implements SupportsFrameEvents
 {
 	public static final int VERSION = 1;
 	public static final String FOR = "1.6.2";
+
+	public boolean hasLoaded = false;
 	
 	private File presenceDir;
 	private File packsFolder;
@@ -112,30 +119,26 @@ public class PFHaddon extends HaddonImpl implements SupportsFrameEvents
 			this.generator = new PFReader4P(this.isolator);
 		}*/
 		
-		try
+
+		this.resourcePacks = Minecraft.getMinecraft().defaultResourcePacks;
+		for (File file : new File(this.presenceDir, "packs/").listFiles())
 		{
-			this.resourcePacks =
-				(List<ResourcePack>) util().getPrivateValueLiteral(Minecraft.class, Minecraft.getMinecraft(), "aq", 63);
-			for (File file : new File(this.presenceDir, "packs/").listFiles())
+			if (file.isDirectory())
 			{
-				if (file.isDirectory())
-				{
-					PFHaddon.log("Adding resource pack at " + file.getAbsolutePath());
-					this.resourcePacks.add(new FolderResourcePack(file));
-				}
+				PFHaddon.log("Adding resource pack at " + file.getAbsolutePath());
+				this.resourcePacks.add(new FolderResourcePack(file));
 			}
 		}
-		catch (PrivateAccessException e)
-		{
-			e.printStackTrace();
-		}
 		
-		reloadEverything(false);
-		
-		manager().hookFrameEvents(true);
-		
+		// manager().hookFrameEvents(true);
+		this.hasLoaded = true;
 	}
-	
+
+	@Override
+	public Identity getIdentity() {
+		return null;
+	}
+
 	public void reloadEverything(boolean nested)
 	{
 		this.isolator = new PFIsolator(this);
@@ -185,7 +188,7 @@ public class PFHaddon extends HaddonImpl implements SupportsFrameEvents
 	private void reloadConfig()
 	{
 		this.config = new ConfigProperty();
-		this.config.setProperty("user.volume.0-to-100", 70);
+		this.config.setProperty("user.volume.0-to-100", 50);
 		this.config.setProperty("user.packname.r0", PFHaddon.DEFAULT_PACK_NAME);
 		this.config.setProperty("update_found.enabled", true);
 		this.config.setProperty("update_found.version", PFHaddon.VERSION);
@@ -376,29 +379,20 @@ public class PFHaddon extends HaddonImpl implements SupportsFrameEvents
 			return;
 		
 		this.isolator.onFrame();
-		
+
 		boolean keysDown = util().areKeysDown(29, 42, 33);
 		this.debugButton.signalState(keysDown); // CTRL SHIFT F
-		if (keysDown && System.currentTimeMillis() - this.pressedOptionsTime > 1000)
+
+		boolean confKeyDown = util().areKeysDown(Keyboard.KEY_F9);
+		if (confKeyDown)
 		{
 			if (util().isCurrentScreen(null))
 			{
 				Minecraft.getMinecraft().displayGuiScreen(new PFGuiMenu((GuiScreen) util().getCurrentScreen(), this));
-				setDebugEnabled(false);
 			}
 		}
-		
-		try
-		{
-			//nextStepDistance
-			util().setPrivateValueLiteral(Entity.class, ply, "c", 37, Integer.MAX_VALUE);
-			//util().setPrivateValueLiteral(Entity.class, ply, "c", 37, 0);
-			
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
+
+		ply.nextStepDistance = Integer.MAX_VALUE;
 		
 		if (!this.firstTickPassed)
 		{
@@ -439,6 +433,7 @@ public class PFHaddon extends HaddonImpl implements SupportsFrameEvents
 				try
 				{
 					this.cache.cacheSound(root + file.getName());
+					LOGGER.info("Cached sound {}", root + file.getName());
 				}
 				catch (Exception var9)
 				{
@@ -474,7 +469,7 @@ public class PFHaddon extends HaddonImpl implements SupportsFrameEvents
 	
 	public static void log(String contents)
 	{
-		System.out.println("(PF) " + contents);
+        LOGGER.info("(PF) {}", contents);
 	}
 	
 	public static void setDebugEnabled(boolean enable)
@@ -486,8 +481,8 @@ public class PFHaddon extends HaddonImpl implements SupportsFrameEvents
 	{
 		if (!isDebugEnabled)
 			return;
-		
-		System.out.println("(PF) " + contents);
+
+		LOGGER.debug("(PF) {}", contents);
 	}
 	
 	public void saveConfig()
@@ -501,5 +496,4 @@ public class PFHaddon extends HaddonImpl implements SupportsFrameEvents
 			this.config.save();
 		}
 	}
-	
 }
